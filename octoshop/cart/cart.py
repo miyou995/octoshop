@@ -13,6 +13,7 @@ class Cart(object):
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
+
     def save(self):
         self.session.modified = True
 
@@ -45,9 +46,10 @@ class Cart(object):
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
+        
         for product in products:
             cart[str(product.id)]['product'] = product
-        # hadi mafhamthach bien id__in = product_ids ????
+
         for item in cart.values():
             item['price'] = Decimal(item['price'])
             item['taille'] = item['taille'] 
